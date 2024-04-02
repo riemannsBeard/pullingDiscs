@@ -1,0 +1,138 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    location    "0";
+    object      U;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 1 -1 0 0 0 0];
+
+
+internalField   uniform (0 0 0);
+
+boundaryField
+{
+    farfield
+    {
+        type            codedFixedValue;
+        value           uniform (0 0 0);
+        name            codedStuff;
+        code            #{
+            dimensionedScalar f
+            (
+                "f", dimless/dimTime,
+                this->db().lookupObject<IOdictionary>("kinematicProperties").lookup("f")
+            );
+        
+            dimensionedVector A
+            (
+                "A", dimLength,
+                this->db().lookupObject<IOdictionary>("kinematicProperties").lookup("A")
+            );
+
+            dimensionedScalar Phi
+            (
+                "Phi", dimless,
+                this->db().lookupObject<IOdictionary>("kinematicProperties").lookup("Phi")
+            );
+
+            const scalar pi = Foam::constant::mathematical::pi;
+            operator==
+            (
+/* 
+               vector(0, 0, 1) - 
+                    2.0*pi*f.value()*A.value()*cos(2.0*pi*f.value()*this->db().time().value())
+*/
+                2.0*pi*f.value()*A.value()*cos(2.0*pi*f.value()*this->db().time().value() + Phi.value())
+            );
+        #};
+    }
+    disc
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+    outlet
+    {
+        type            codedFixedValue;
+        value           uniform (0 0 0);
+        name            codedStuff;
+        code            #{
+            dimensionedScalar f
+            (
+                "f", dimless/dimTime,
+                this->db().lookupObject<IOdictionary>("kinematicProperties").lookup("f")
+            );
+        
+            dimensionedVector A
+            (
+                "A", dimLength,
+                this->db().lookupObject<IOdictionary>("kinematicProperties").lookup("A")
+            );
+
+            dimensionedScalar Phi
+            (
+                "Phi", dimless,
+                this->db().lookupObject<IOdictionary>("kinematicProperties").lookup("Phi")
+            );
+
+            const scalar pi = Foam::constant::mathematical::pi;
+            operator==
+            (
+/* 
+               vector(0, 0, 1) - 
+                    2.0*pi*f.value()*A.value()*cos(2.0*pi*f.value()*this->db().time().value())
+*/
+                2.0*pi*f.value()*A.value()*cos(2.0*pi*f.value()*this->db().time().value() + Phi.value())
+            );
+        #};
+    }
+    inlet
+    {
+        type            codedFixedValue;
+        value           uniform (0 0 0);
+        name            codedStuff;
+        code            #{
+            dimensionedScalar f
+            (
+                "f", dimless/dimTime,
+                this->db().lookupObject<IOdictionary>("kinematicProperties").lookup("f")
+            );
+        
+            dimensionedVector A
+            (
+                "A", dimLength,
+                this->db().lookupObject<IOdictionary>("kinematicProperties").lookup("A")
+            );
+
+            dimensionedScalar Phi
+            (
+                "Phi", dimless,
+                this->db().lookupObject<IOdictionary>("kinematicProperties").lookup("Phi")
+            );
+
+            const scalar pi = Foam::constant::mathematical::pi;
+            operator==
+            (
+/* 
+               vector(0, 0, 1) - 
+                    2.0*pi*f.value()*A.value()*cos(2.0*pi*f.value()*this->db().time().value())
+*/
+                2.0*pi*f.value()*A.value()*cos(2.0*pi*f.value()*this->db().time().value() + Phi.value())
+            );
+        #};
+    }
+}
+
+
+// ************************************************************************* //

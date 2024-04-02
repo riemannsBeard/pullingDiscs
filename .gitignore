@@ -1,0 +1,29 @@
+# Ignorar archivos de compilación y ejecutables generados
+*.exe
+*.o
+*.out
+
+# Ignorar archivos de respaldo y temporales
+*~
+*.swp
+*.bak
+
+# Ignorar directorios y archivos generados por IDEs y editores de texto
+.idea/
+.vscode/
+*.sublime-workspace
+
+# Ignorar archivos de dependencias y directorios de paquetes
+node_modules/
+bower_components/
+vendor/
+
+# Ignorar archivos de configuración de sistema y caché
+.DS_Store
+Thumbs.db
+
+codes/**/constant/
+codes/**/[1-9]*/
+codes/**/0.*/
+
+
